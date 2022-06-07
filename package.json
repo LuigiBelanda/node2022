@@ -1,0 +1,21 @@
+{
+  "name": "node2022",
+  "version": "1.0.0",
+  "description": "Código desenvolvido durante o vídeo da Rocketseat \"COMEÇANDO COM NODE.JS EM 2022\"",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LuigiBelanda/node2022.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LuigiBelanda/node2022/issues"
+  },
+  "homepage": "https://github.com/LuigiBelanda/node2022#readme"
+}
