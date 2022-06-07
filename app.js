@@ -1,9 +1,21 @@
 import express from "express";
 import { randomUUID } from "crypto";
+import fs from "fs";
 
 const app = express();
 
-const products = [];
+let products = [];
+
+// lendo o nosso arquivo
+// nome do arquivo - tipo do dado de retorno - err, data
+fs.readFile("products.json", "utf-8", (err, data) => {
+    if (err) {
+        console.log(err);
+    } else {
+        // colocando os dados do arquivo no array products em formato JSON (json.parse)
+        products = JSON.parse(data);
+    }
+});
 
 // middleware para o express entender os body em JSON
 app.use(express.json());
@@ -24,6 +36,9 @@ app.post("/products", (req, res) => {
 
     // colocando os dados no array products
     products.push(product);
+
+    // passando as infos para um arquivo que iremos criar
+    productFile();
 
     // retornando os produtos que temos
     return res.json(product);
@@ -63,6 +78,8 @@ app.put("/products/:id", (req, res) => {
         price,
     };
 
+    productFile();
+
     return res.json({
         product: products[productIndex],
         message: "Produto alterado com sucesso!",
@@ -77,7 +94,19 @@ app.delete("/products/:id", (req, res) => {
     // removendo o item que queremos
     products.splice(productIndex, 1);
 
+    productFile();
+
     return res.json({ message: "Produto retirado!" });
 });
+
+function productFile() {
+    fs.writeFile("products.json", JSON.stringify(products), (err) => {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log("Produto inserido");
+        }
+    });
+}
 
 app.listen(4001, () => console.log("Servidor rodando na porta 4001"));
